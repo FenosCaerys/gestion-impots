@@ -1,0 +1,31 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { join } = require("path")
+
+/** @type {import("eslint").Linter.Config} */
+module.exports = {
+  root: true,
+  parserOptions: {
+    project: join(__dirname, "/tsconfig.json"),
+  },
+  extends: ["custom/next"],
+  overrides: [
+    {
+      files: ["next.config.js"],
+      rules: {
+        "@typescript-eslint/no-var-requires": "off",
+      },
+      parserOptions: {
+        project: null,
+      },
+    },
+    {
+      files: ["scripts/**/*.js"],
+      rules: {
+        "@typescript-eslint/no-var-requires": "off",
+      },
+      parserOptions: {
+        project: null,
+      },
+    },
+  ],
+}

@@ -1,0 +1,15 @@
+export const SecurityOptionsDr = {
+  securityOptions: true,
+  enhanceSecurity: true,
+  twoFactorAuth: true,
+  securityTips: true,
+  quickActions: true,
+  forgotPassword: true,
+  resetPassword: true,
+  needHelp: true,
+  support: true,
+  useUniquePassword: true,
+  enableTwoFactor: true,
+  neverShareCredentials: true,
+  logoutSharedDevices: true,
+} as const

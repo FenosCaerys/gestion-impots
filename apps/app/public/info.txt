@@ -1,0 +1,412 @@
+📌 Page Accueil
+Structure générale
+•	L’écran est découpé en 3 grandes sections :
+1.	En-tête utilisateur et notifications
+2.	Bloc principal d’impôt à payer
+3.	Liste des paiements récents
+4.	Navigation par onglets (bottom navbar)
+________________________________________
+1. En-tête utilisateur
+Position : haut de la page
+•	Avatar / Initiale utilisateur : petit carré arrondi avec la lettre "L".
+•	Texte de bienvenue : "Hello, Losterne"
+•	Icône notification : cloche positionnée à droite.
+📌 Composants à créer :
+•	UserHeader (props : username, avatar, hasNotification).
+________________________________________
+2. Bloc principal – Impôt à payer
+Position : section centrale
+•	Card principale (fond gris foncé arrondi) affichant :
+o	Titre : "Impôt à payer"
+o	Montant affiché en gros : 68 574 XOF
+o	Texte secondaire : "À payer au plus tard le : 15 Sep. 2025"
+•	En dessous, 2 boutons côte à côte :
+o	Payer (icône dossier + texte, couleur orange)
+o	Scan (icône QR code + texte, couleur orange)
+📌 Composants à créer :
+•	TaxCard (props : amount, deadline).
+•	ActionButton (props : label, icon, onClick, variant).
+________________________________________
+3. Liste des paiements récents
+Position : section inférieure, fond blanc
+•	Titre : "Récents" avec lien Voir tout aligné à droite.
+•	Liste verticale d’éléments, chaque élément contient :
+o	Icône document grisé.
+o	Texte : "Impôt 2024".
+o	Date : "15 Dec. 2024, 11.05".
+o	Montant : "67 523 XOF".
+📌 Composants à créer :
+•	RecentPaymentsSection (props : items[]).
+•	RecentPaymentItem (props : title, date, amount).
+________________________________________
+4. Navigation par onglets (Bottom Navbar)
+Position : bas de la page
+•	4 icônes avec labels :
+o	Accueil (icône maison, actif).
+o	Historique (icône horloge).
+o	Simulateur (icône calculatrice).
+o	Moi (icône profil).
+📌 Composants à créer :
+•	BottomNav (props : activeTab).
+•	NavItem (props : label, icon, isActive).
+________________________________________
+👉 Résumé rapide des composants à coder pour cette page :
+•	UserHeader
+•	TaxCard
+•	ActionButton
+•	RecentPaymentsSection
+•	RecentPaymentItem
+•	BottomNav
+•	NavItem
+
+Design System – Page Accueil
+1. Couleurs
+•	Fond global haut (bloc impôt) : bg-[#1A1A1A] (noir/gris très foncé)
+•	Texte principal (clair) : text-white ou text-[#F5F5F5]
+•	Texte secondaire (dates, sous-titres) : text-gray-400 (#9CA3AF)
+•	Boutons principaux (Payer, Scan) : bg-[#F59E0B] (orange vif), texte en text-white
+•	Fond bas (liste et navbar) : bg-white
+•	Texte noir principal : text-black (#111827)
+•	Icônes secondaires : gris clair #D1D5DB
+________________________________________
+2. Police et Typographie
+•	Police globale : font-sans (équivalent Tailwind → font-inter si installée, sinon font-sans)
+•	Titre / Montants : font-bold ou font-extrabold
+•	Sous-titres / Labels : font-medium
+•	Textes secondaires (dates, infos) : font-normal
+Tailles (Tailwind classes) :
+•	text-2xl → Montants principaux ("68 574 XOF")
+•	text-lg → Titre de section ("Impôt à payer")
+•	text-sm → Dates ("15 Sep. 2025", "15 Dec. 2024, 11.05")
+•	text-xs → Labels navbar
+________________________________________
+3. Layout et Espacements
+•	Padding global : px-4 (16px)
+•	Margin entre sections : mt-6 ou mb-6
+•	Card impôt (bloc gris) :
+o	rounded-xl
+o	p-4
+•	Boutons (Payer/Scan) :
+o	rounded-xl
+o	px-6 py-3
+o	flex items-center justify-center
+o	Espacement horizontal : gap-2 (pour icône + texte)
+•	Liste paiements récents :
+o	Chaque item : flex justify-between items-center p-4 border-b border-gray-200
+•	Bottom navbar :
+o	h-16 flex justify-around items-center border-t border-gray-200 bg-white
+________________________________________
+4. Icônes
+•	Utiliser Heroicons ou Lucide React (intégrables facilement avec Next.js + Tailwind).
+•	Icônes présentes :
+o	Avatar (initiale) → cercle avec bg-orange-500 text-white
+o	Cloche → BellIcon
+o	Dossier (Payer) → FolderIcon
+o	QR Code (Scan) → QrCodeIcon
+o	Document (paiement récent) → DocumentTextIcon
+o	Maison, Horloge, Calculatrice, Utilisateur → pour la navbar
+________________________________________
+5. États interactifs
+•	Boutons (hover/active) :
+o	Hover : bg-[#FBBF24] (orange plus clair)
+o	Active : bg-[#D97706] (orange foncé)
+•	Navbar active tab :
+o	Icône et label text-[#F59E0B]
+o	Non actif : text-gray-400
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+📌 Page Historique
+1. Structure générale
+La page est organisée en 3 sections principales :
+1.	En-tête (titre + notification)
+2.	Liste des paiements récents (élément central)
+3.	Navigation par onglets (footer navbar)
+________________________________________
+2. Décomposition par section
+🔹 En-tête (Header)
+•	Fond : noir/gris très foncé bg-[#1A1A1A]
+•	Titre : Historique (aligné à gauche, text-white, font-bold, taille text-xl)
+•	Icône cloche (notification) : alignée à droite, text-white, taille w-6 h-6
+📌 Composant : PageHeader (props : title, hasNotification)
+________________________________________
+🔹 Liste des paiements récents
+•	Titre de section : "Récents" (text-black, font-medium, text-lg)
+•	Bouton "Voir tout" aligné à droite (text-orange-500, text-sm, font-medium)
+•	Fond : bg-white avec arrondis et légère ombre shadow-sm rounded-xl
+Chaque item de la liste :
+•	Conteneur : flex justify-between items-center p-4 border-b border-gray-200
+•	À gauche :
+o	Icône document (DocumentTextIcon, w-6 h-6, text-gray-400, dans un cercle gris clair bg-gray-100 rounded-full p-2)
+o	À droite de l’icône :
+	Titre : "Impôt 2024" (text-black, font-medium, text-sm)
+	Date : "15 Dec. 2024, 11.05" (text-gray-500, text-xs)
+•	À droite : Montant : "67523 XOF" (text-black, font-semibold, text-sm)
+📌 Composants :
+•	PaymentsList (props : items[])
+•	PaymentItem (props : title, date, amount)
+________________________________________
+🔹 Navigation (Bottom Navbar)
+•	Fond : bg-white, haut bordé border-t border-gray-200
+•	Hauteur : h-16 flex justify-around items-center
+•	Onglets :
+o	Accueil (non actif → text-gray-400)
+o	Historique (actif → text-black avec un cercle noir autour de l’icône, effet highlight)
+o	Simulateur (non actif)
+o	Moi (non actif)
+📌 Composants :
+•	BottomNav (props : activeTab)
+•	NavItem (props : icon, label, isActive)
+________________________________________
+3. Style détaillé
+Couleurs
+•	Header : #1A1A1A (noir foncé)
+•	Texte principal : #111827 (noir profond → Tailwind text-gray-900)
+•	Texte secondaire (date, infos) : #6B7280 (gris moyen → text-gray-500)
+•	Montants : #111827 (noir, font-semibold)
+•	Bouton “Voir tout” : #F59E0B (orange vif)
+•	Icônes : gris clair #9CA3AF
+Polices
+•	Police : font-sans (Inter ou équivalent)
+•	Titres (header et section) : font-bold ou font-medium
+•	Montants : font-semibold
+•	Dates : font-normal, petite taille
+Tailles
+•	text-xl → Titre "Historique"
+•	text-lg → "Récents"
+•	text-sm → Montants et titres de ligne
+•	text-xs → Dates
+•	Icônes → w-6 h-6 (dans la liste et header)
+Espacements
+•	Padding global horizontal : px-4
+•	Padding items liste : p-4
+•	Espacement entre titre et liste : mt-4
+•	Espacement entre éléments icône/texte : ml-3 ou gap-3
+________________________________________
+4. Résumé des composants à coder pour cette page
+•	PageHeader
+•	PaymentsList
+•	PaymentItem
+•	BottomNav
+•	NavItem
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+Page Simulateur
+🎨 Aspect général (UI/UX)
+•	Couleurs principales :
+o	Fond global : gris très clair (#F9FAFB ou proche).
+o	Header (bandeau supérieur) : noir pur (#000000) avec du texte blanc.
+o	Bouton calcul impôt (résultat) : fond blanc avec une bordure fine grise, le montant est mis en avant avec un encart orangé (#F97316 environ).
+o	Navigation bottom bar : fond blanc, icônes grises (#9CA3AF), l’onglet actif est mis en avant avec une icône plus sombre (noir) et un petit indicateur.
+•	Police : Sans serif moderne type Inter ou Roboto.
+•	Hiérarchie typographique :
+o	Titres : gras, taille ~18-20px.
+o	Labels des champs : réguliers, taille ~14-16px.
+o	Valeur calculée : gras, taille ~20-22px, couleur orange.
+________________________________________
+🧩 Décomposition en composants
+1. Header
+•	Fond noir, hauteur moyenne (60px).
+•	Contenu :
+o	À gauche : titre "Simulateur" en blanc, centré verticalement.
+o	À droite : icône cloche (notifications).
+•	Style : flex horizontal, padding intérieur ~16px.
+________________________________________
+2. Formulaire de simulation (card blanche arrondie, légère ombre)
+Contenu placé dans un conteneur blanc avec bords arrondis (rounded-xl) et un padding interne (~20px).
+•	Champ Adresse (Dropdown)
+o	Label : "Adresse".
+o	Sélecteur avec placeholder actuel "Littoral".
+o	Icône flèche vers le bas.
+•	Champ Superficie (Dropdown)
+o	Label : "Superficie".
+o	Sélecteur : "500 - 800 m2".
+•	Champ Usage (Input readonly ou sélectionné)
+o	Label : "Usage".
+o	Champ rempli avec "Bâti".
+•	Champ Statut juridique (Input readonly ou sélectionné)
+o	Label : "Statut juridique".
+o	Champ rempli avec "Titre foncier".
+⚙️ Style des champs :
+•	Fond blanc, bord gris clair (#E5E7EB).
+•	Hauteur ~44px, coins arrondis (rounded-lg).
+•	Police ~14-16px.
+________________________________________
+3. Résultat Impôt estimé
+•	Bloc séparé du formulaire.
+•	Fond blanc, arrondi, avec ombre douce.
+•	Contenu :
+o	Label "Impôt estimé :" en gris foncé.
+o	Montant affiché dans un encart surligné orange clair avec texte gras orange foncé.
+Exemple : 65 480F /an → en taille plus grande que les labels (20-22px).
+________________________________________
+4. Navigation Bottom Bar
+•	Fond blanc, hauteur ~70px.
+•	4 icônes avec label dessous :
+o	Accueil
+o	Historique
+o	Simulateur (actif, donc en noir foncé au lieu de gris)
+o	Moi
+•	Style :
+o	Icônes centrés avec label en dessous (taille ~12px).
+o	Couleur inactive : gris (#9CA3AF).
+o	Couleur active : noir.
+________________________________________
+✅ Résumé rapide composants :
+•	Header (noir, texte blanc, icône notif)
+•	FormCard (bloc formulaire avec champs dropdown / input)
+•	ResultCard (bloc impôt estimé avec texte mis en avant)
+•	BottomNavBar (4 onglets avec état actif/inactif)
+
+
+
+
+
+Page Moi (Infos personnelles + Paramètres)
+🎨 Aspect général (UI/UX)
+•	Couleur de fond global : gris très clair (#F9FAFB).
+•	Bloc supérieur (header profil) : fond noir (#000000), texte blanc, style carte.
+•	Cartes / sections : fond blanc, coins arrondis (rounded-xl), ombre très légère.
+•	Police : sans-serif type Inter ou Roboto.
+•	Hiérarchie :
+o	Titres de sections ("Moi", "Paramètres", "Info général") en gris foncé (#4B5563), taille ~14px, gras.
+o	Éléments de liste : texte noir ~16px, icône flèche grise (#9CA3AF).
+o	Actions négatives (comme "Déconnexion") en rouge (#DC2626).
+________________________________________
+🧩 Décomposition en composants
+1. Header Profil
+•	Fond : noir (#000).
+•	Contenu :
+o	Avatar : cercle avec initiale de l’utilisateur (ici "L") sur fond orange (#F97316).
+o	Nom complet : "Losterne Brice", texte blanc, gras, taille ~16px.
+o	Identifiant : "NPI: 8756450012", texte gris clair (#9CA3AF), taille ~12px.
+________________________________________
+2. Bloc progression profil
+•	Carte blanche avec coins arrondis.
+•	Contenu :
+o	Titre : "Complétez vos infos" (gras, noir).
+o	Progress bar : barre de progression grise avec une portion remplie (ici ~30%).
+o	Sous-texte : "(1/3) Entrez vos infos perso", en gris clair (#9CA3AF).
+o	Icône flèche à droite → navigation.
+________________________________________
+3. Section Moi
+•	Titre section : "Moi", petit texte gris (#6B7280).
+•	Liste en style ListItem (fond blanc, padding ~16px, flèche à droite) :
+o	Mes parcelles
+o	Mes infos
+o	General
+________________________________________
+4. Section Paramètres
+•	Titre section : "Paramètres".
+•	Liste d’items :
+o	Modifier profil
+o	Notification
+o	Sécurité
+o	Langue
+o	Autres
+o	Confidentialité (avec info affichée à droite → "24 MB")
+⚙️ Chaque item = fond blanc, texte noir, flèche grise à droite, séparateurs très fins gris (#E5E7EB).
+________________________________________
+5. Section Info général
+•	Titre : "Info général".
+•	Liste :
+o	Centre d’aide
+o	Termes & conditions
+o	Privacy Policy
+________________________________________
+6. Bouton Déconnexion
+•	Item spécial, fond blanc.
+•	Texte rouge vif (#DC2626).
+•	Icône flèche sortie en rouge, alignée à droite.
+•	Sans titre de section au-dessus, il est mis en évidence en bas de la page.
+________________________________________
+7. Navigation Bottom Bar
+•	Identique à la page précédente :
+o	Fond blanc.
+o	Icônes + labels : Accueil, Historique, Simulateur, Moi.
+o	Moi est actif → icône + label en noir foncé.
+________________________________________
+✅ Résumé rapide composants :
+•	ProfileHeader (fond noir avec avatar + nom + ID).
+•	ProfileProgressCard (progression du profil avec barre + flèche).
+•	SectionTitle (Moi / Paramètres / Info général).
+•	ListItem (texte + flèche, éventuellement info supplémentaire à droite).
+•	LogoutButton (texte + icône rouge).
+•	BottomNavBar.
+
+
+
+
+
+🖼️ Page Paiement (confirmation)
+🎨 Aspect général
+•	Couleur de fond : blanc (#FFFFFF).
+•	Palette :
+o	Noir profond pour header et bouton (#000000).
+o	Orange vif pour confirmation et montant (#F97316 → similaire à l’accent dans les autres pages).
+o	Gris clair pour infos secondaires (#9CA3AF / #6B7280).
+•	Police : sans serif (Inter / Roboto).
+•	Alignement global : contenu centré verticalement avec marges latérales généreuses (~24px).
+________________________________________
+🧩 Décomposition en composants
+1. Header de page
+•	Fond noir.
+•	Texte blanc centré : "Payement" (gras, ~18px).
+•	Icône "X" à droite pour fermer la page (blanc).
+________________________________________
+2. Icône de confirmation
+•	Cercle orange avec un check blanc centré.
+•	Positionné en haut du contenu, taille ~60px.
+________________________________________
+3. Message de confirmation
+•	Titre principal : "Payement effectué" (gras, noir, ~18px).
+•	Texte secondaire : "Vous avez payé avec succès votre impôt de l'année 2024." (gris foncé, centré, taille ~14px).
+________________________________________
+4. Bloc Méthode de paiement
+•	Carte grise clair (#F3F4F6), arrondie (rounded-lg).
+•	Contenu :
+o	Icône MTN Momo à gauche (rectangle orange avec un pictogramme).
+o	Texte :
+	"MTN Momo" (gras, noir).
+	ID: 88291058212495 (gris clair, petite taille).
+________________________________________
+5. Bloc Détails du paiement
+•	Présenté en grille 2 colonnes :
+o	Colonne gauche :
+	Label "Mode" → Valeur "Mobile".
+	Label "Date" → Valeur "25 Dec. 2024".
+o	Colonne droite :
+	Label "Source des fonds" → Valeur "MTN Momo".
+	Label "Heure" → Valeur "11:04:59".
+⚙️ Labels en gris (#6B7280), valeurs en noir.
+________________________________________
+6. Bloc Montant total
+•	Large bandeau orange vif (#F97316), arrondi.
+•	Contenu centré :
+o	Label "Total".
+o	Montant 65 745 XOF (gras, blanc ou noir selon design).
+o	Police plus grande que le reste (~20px).
+________________________________________
+7. Bouton Retour
+•	Bouton plein noir, arrondi (rounded-lg).
+•	Texte blanc centré : "Retour à l'accueil", taille ~16px.
+•	Positionné tout en bas.
+________________________________________
+✅ Résumé composants :
+•	Header (fond noir, titre blanc, icône X).
+•	ConfirmIcon (cercle orange avec check blanc).
+•	ConfirmMessage (titre + texte secondaire).
+•	PaymentMethodCard (méthode de paiement avec ID).
+•	PaymentDetailsGrid (mode, date, source, heure).
+•	TotalBanner (montant en orange, texte en gras).
+•	ReturnButton (bouton noir).
+

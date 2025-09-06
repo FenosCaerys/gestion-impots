@@ -1,0 +1,329 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_PRISMA_URL") // uses connection pooling
+  directUrl = env("DATABASE_URL_NON_POOLING") // uses a direct connection
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+model User {
+  id               String    @id @default(cuid())
+  name             String?
+  email            String?   @unique
+  emailVerified    DateTime?
+  profilePictureId String?   @unique
+  image            String? // Require to use auth.js 
+  accounts         Account[]
+
+  // Custom fields
+  username                   String?                     @unique
+  role                       UserRole                    @default(USER)
+  password                   String?
+  hasPassword                Boolean                     @default(false)
+  lastLocale                 String?
+  otpSecret                  String                      @default("")
+  otpMnemonic                String                      @default("")
+  otpVerified                Boolean                     @default(false)
+
+  // Tax management specific fields
+  npi                        String?                     @unique // Numéro de Propriétaire Immobilier
+  firstName                  String?
+  lastName                   String?
+  phoneNumber                String?
+  address                    String?
+  city                       String?
+  postalCode                 String?
+  profileCompletionStep      Int                         @default(0) // 0-3 steps
+  
+  // Relations
+  properties                 Property[]
+  payments                   Payment[]
+  taxCalculations           TaxCalculation[]
+  notifications             Notification[]
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum PropertyType {
+  BATI           // Bâti
+  COMMERCIAL     // Commercial
+  INDUSTRIEL     // Industriel
+  AGRICOLE       // Agricole
+  TERRAIN_NU     // Terrain nu
+}
+
+enum PropertyUsage {
+  RESIDENCE_PRINCIPALE    // Résidence principale
+  RESIDENCE_SECONDAIRE   // Résidence secondaire
+  LOCATION              // Location
+  COMMERCIAL            // Commercial
+  INDUSTRIEL            // Industriel
+  AGRICOLE              // Agricole
+}
+
+enum LegalStatus {
+  TITRE_FONCIER         // Titre foncier
+  CERTIFICAT_PROPRIETE  // Certificat de propriété
+  ACTE_VENTE           // Acte de vente
+  HERITAGE             // Héritage
+}
+
+enum District {
+  PLATEAU
+  COCODY
+  YOPOUGON
+  ABOBO
+  ADJAME
+  ATTECOUBE
+  TREICHVILLE
+  MARCORY
+  KOUMASSI
+  PORT_BOUET
+  BINGERVILLE
+  SONGON
+}
+
+model Property {
+  id                String        @id @default(cuid())
+  userId            String
+  user              User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Property details
+  title             String
+  description       String?
+  address           String
+  district          District
+  area              Float         // Surface en m²
+  propertyType      PropertyType
+  usage             PropertyUsage
+  legalStatus       LegalStatus
+  
+  // Property value
+  estimatedValue    Float?        // Valeur estimée
+  purchasePrice     Float?        // Prix d'achat
+  purchaseDate      DateTime?     // Date d'achat
+  
+  // Tax calculations
+  taxCalculations   TaxCalculation[]
+  payments          Payment[]
+  
+  // Status
+  isActive          Boolean       @default(true)
+  
+  // Timestamps
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  
+  @@index([userId])
+  @@index([district])
+}
+
+enum PaymentStatus {
+  PENDING    // En attente
+  COMPLETED  // Terminé
+  FAILED     // Échoué
+  CANCELLED  // Annulé
+}
+
+enum PaymentMethod {
+  MTN_MOMO
+  ORANGE_MONEY
+  MOOV_MONEY
+  WAVE
+  BANK_TRANSFER
+  CASH
+}
+
+model Payment {
+  id                String        @id @default(cuid())
+  userId            String
+  user              User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  propertyId        String?
+  property          Property?     @relation(fields: [propertyId], references: [id], onDelete: SetNull)
+  taxCalculationId  String?
+  taxCalculation    TaxCalculation? @relation(fields: [taxCalculationId], references: [id], onDelete: SetNull)
+  
+  // Payment details
+  amount            Float
+  currency          String        @default("XOF")
+  paymentMethod     PaymentMethod
+  paymentReference  String        @unique // ID de transaction (ex: MTN Momo ID)
+  
+  // Payment status
+  status            PaymentStatus @default(PENDING)
+  paidAt            DateTime?
+  
+  // Tax year
+  taxYear           Int
+  
+  // External payment data
+  externalId        String?       // ID du fournisseur de paiement
+  metadata          Json?         // Données supplémentaires du paiement
+  
+  // Timestamps
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  
+  @@index([userId])
+  @@index([status])
+  @@index([taxYear])
+  @@index([paymentReference])
+}
+
+model TaxCalculation {
+  id                String        @id @default(cuid())
+  userId            String
+  user              User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  propertyId        String?
+  property          Property?     @relation(fields: [propertyId], references: [id], onDelete: SetNull)
+  
+  // Calculation parameters
+  taxYear           Int
+  baseAmount        Float         @default(50000) // Montant de base
+  districtMultiplier Float        // Multiplicateur par quartier
+  areaMultiplier    Float         // Multiplicateur par superficie
+  usageMultiplier   Float         // Multiplicateur par usage
+  statusMultiplier  Float         // Multiplicateur par statut juridique
+  
+  // Calculated amounts
+  calculatedAmount  Float         // Montant calculé
+  finalAmount       Float         // Montant final (après ajustements)
+  
+  // Calculation metadata
+  calculationData   Json?         // Détails du calcul
+  
+  // Relations
+  payments          Payment[]
+  
+  // Status
+  isEstimate        Boolean       @default(true) // true = estimation, false = calcul officiel
+  
+  // Timestamps
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  
+  @@index([userId])
+  @@index([taxYear])
+  @@unique([userId, propertyId, taxYear])
+}
+
+enum NotificationType {
+  PAYMENT_DUE       // Échéance de paiement
+  PAYMENT_SUCCESS   // Paiement réussi
+  PAYMENT_FAILED    // Paiement échoué
+  TAX_REMINDER      // Rappel d'impôt
+  PROFILE_INCOMPLETE // Profil incomplet
+  SYSTEM            // Notification système
+}
+
+model Notification {
+  id          String           @id @default(cuid())
+  userId      String
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Notification content
+  type        NotificationType
+  title       String
+  message     String
+  
+  // Status
+  isRead      Boolean          @default(false)
+  
+  // Optional relations
+  paymentId   String?
+  propertyId  String?
+  
+  // Metadata
+  metadata    Json?
+  
+  // Timestamps
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  
+  @@index([userId])
+  @@index([isRead])
+  @@index([type])
+}
+
+// Configuration système pour les calculs d'impôts
+model TaxConfig {
+  id                    String    @id @default(cuid())
+  
+  // Configuration générale
+  baseAmount            Float     @default(50000)
+  taxYear               Int       @unique
+  
+  // Multiplicateurs par quartier
+  plateauMultiplier     Float     @default(1.4)
+  cocodyMultiplier      Float     @default(1.3)
+  yopougonMultiplier    Float     @default(1.1)
+  aboboMultiplier       Float     @default(1.0)
+  adjameMultiplier      Float     @default(1.1)
+  attecoubeMultiplier   Float     @default(1.2)
+  treichvilleMultiplier Float     @default(1.3)
+  marcoryMultiplier     Float     @default(1.2)
+  koumassiMultiplier    Float     @default(1.1)
+  portBouetMultiplier   Float     @default(1.5) // Littoral
+  bingervilleMultiplier Float     @default(1.0)
+  songonMultiplier      Float     @default(0.9)
+  
+  // Multiplicateurs par superficie (m²)
+  area0to200Multiplier    Float   @default(0.8)
+  area200to500Multiplier  Float   @default(1.0)
+  area500to800Multiplier  Float   @default(1.2)
+  area800to1200Multiplier Float   @default(1.4)
+  area1200to2000Multiplier Float  @default(1.6)
+  area2000PlusMultiplier  Float   @default(2.0)
+  
+  // Multiplicateurs par usage
+  residencePrincipaleMultiplier Float @default(1.0)
+  residenceSecondaireMultiplier Float @default(1.1)
+  locationMultiplier           Float @default(1.2)
+  commercialMultiplier         Float @default(2.0)
+  industrielMultiplier         Float @default(1.8)
+  agricoleMultiplier           Float @default(0.7)
+  
+  // Multiplicateurs par statut juridique
+  titreFoncierMultiplier      Float @default(1.2)
+  certificatMultiplier        Float @default(1.1)
+  acteVenteMultiplier         Float @default(1.0)
+  heritageMultiplier          Float @default(0.9)
+  
+  // Status
+  isActive              Boolean   @default(true)
+  
+  // Timestamps
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+}
