@@ -9,9 +9,6 @@ module.exports = {
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    babelOptions: {
-      presets: [require.resolve("next/babel")],
-    },
     extraFileExtensions: [".json"],
   },
   plugins: ["@typescript-eslint", "unused-imports", "simple-import-sort", "custom-rule", "tailwindcss"],
