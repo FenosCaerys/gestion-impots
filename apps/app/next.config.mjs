@@ -9,6 +9,7 @@ let config = {
   reactStrictMode: true,
   compiler: {
     styledComponents: true,
+    styledJsx: false,
   },
   rewrites() {
     return [
