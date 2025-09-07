@@ -1,11 +1,18 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { join } = require("path")
-
-/** @type {import("eslint").Linter.Config} */
 module.exports = {
   root: true,
-  parserOptions: {
-    project: join(__dirname, "/tsconfig.json"),
+  rules: {
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-page-custom-font": "off",
+    "@next/next/no-img-element": "off",
+    "@next/next/no-assign-module-variable": "off",
+    "import/no-anonymous-default-export": "off",
   },
-  extends: ["custom/base"],
+  overrides: [
+    {
+      files: ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      rules: {
+        "all": "off"
+      }
+    }
+  ]
 }

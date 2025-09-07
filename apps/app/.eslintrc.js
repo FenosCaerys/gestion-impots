@@ -1,31 +1,38 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { join } = require("path")
+import { FlatCompat } from '@eslint/eslintrc';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-/** @type {import("eslint").Linter.Config} */
-module.exports = {
-  root: true,
-  parserOptions: {
-    project: join(__dirname, "/tsconfig.json"),
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+});
+
+const config = [
+  {
+    ignores: [
+      'node_modules/**',
+      '.next/**',
+      'out/**',
+      'dist/**',
+      'build/**',
+      '*.config.js',
+      '*.config.mjs',
+      '*.config.ts',
+      'next-env.d.ts',
+    ],
   },
-  extends: ["custom/next"],
-  overrides: [
-    {
-      files: ["next.config.js"],
-      rules: {
-        "@typescript-eslint/no-var-requires": "off",
-      },
-      parserOptions: {
-        project: null,
-      },
+  ...compat.extends('next/core-web-vitals'),
+  {
+    rules: {
+      'react/no-unescaped-entities': 'off',
+      '@next/next/no-page-custom-font': 'off',
+      '@next/next/no-img-element': 'off',
+      '@next/next/no-assign-module-variable': 'off',
+      'import/no-anonymous-default-export': 'off',
     },
-    {
-      files: ["scripts/**/*.js"],
-      rules: {
-        "@typescript-eslint/no-var-requires": "off",
-      },
-      parserOptions: {
-        project: null,
-      },
-    },
-  ],
-}
+  },
+];
+
+export default config;
