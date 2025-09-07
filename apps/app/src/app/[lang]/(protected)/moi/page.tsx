@@ -2,13 +2,16 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { ChevronRight, User, LogOut } from 'lucide-react';
 import { ProfileHeader } from '@/components/dashboard/ProfileHeader';
 import { ProfileSection } from '@/components/dashboard/ProfileSection';
+import { useAuth } from '@/hooks/useAuth';
 import { BottomNav } from '@/components/ui/BottomNav';
 import { PageLayout } from '@/components/ui/PageLayout';
 
 export default function MoiPage() {
   const router = useRouter();
+  const { logout } = useAuth();
   const [activeTab, setActiveTab] = useState<'accueil' | 'historique' | 'simulateur' | 'moi'>('moi');
 
   const handleTabChange = (tab: 'accueil' | 'historique' | 'simulateur' | 'moi') => {
@@ -27,8 +30,7 @@ export default function MoiPage() {
   };
 
   const handleLogout = () => {
-    // TODO: Implémenter la déconnexion
-    console.log('Déconnexion');
+    logout();
   };
 
   const handleNavigation = (section: string) => {

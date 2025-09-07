@@ -69,6 +69,8 @@ model User {
   payments                   Payment[]
   taxCalculations           TaxCalculation[]
   notifications             Notification[]
+  adminLogs                 AdminLog[]    @relation("AdminLogs")
+  ownedParcels              Owner?        // Lien avec Owner si l'utilisateur est propriétaire
 
   // Timestamps
   createdAt DateTime @default(now())
@@ -137,6 +139,10 @@ model Property {
   // Tax calculations
   taxCalculations   TaxCalculation[]
   payments          Payment[]
+  
+  // Admin relations
+  parcel            Parcel?       @relation(fields: [parcelId], references: [id])
+  parcelId          String?       @unique
   
   // Status
   isActive          Boolean       @default(true)
@@ -326,4 +332,184 @@ model TaxConfig {
   // Timestamps
   createdAt             DateTime  @default(now())
   updatedAt             DateTime  @updatedAt
+}
+
+// Modèle pour la gestion des parcelles (vue admin)
+model Parcel {
+  id              String    @id @default(cuid())
+  
+  // Identification parcelle
+  parcelNumber    String    // Lettre de la parcelle (A, B, C, etc.)
+  lotNumber       String    // Numéro du lot
+  
+  // Localisation
+  address         String
+  district        District
+  arrondissement  String?   // Arrondissement spécifique
+  
+  // Propriétaire
+  ownerId         String?
+  owner           Owner?    @relation(fields: [ownerId], references: [id], onDelete: SetNull)
+  
+  // Caractéristiques
+  area            Float     // Superficie en m²
+  shape           String?   // Forme (rectangulaire, etc.)
+  usage           ParcelUsage
+  legalStatus     LegalStatus
+  
+  // Coordonnées géographiques
+  latitude        Float?
+  longitude       Float?
+  
+  // Valeur et impôt
+  estimatedTax    Float?    // Impôt estimé
+  
+  // Relations
+  property        Property? // Lien avec Property si propriété déclarée
+  
+  // Status
+  isActive        Boolean   @default(true)
+  
+  // Timestamps
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@unique([parcelNumber, lotNumber])
+  @@index([district])
+  @@index([ownerId])
+}
+
+enum ParcelUsage {
+  TERRAIN_NU
+  TERRAIN_BATI
+  COMMERCE
+  PROJET_EN_COURS
+  EXPLOITATION_AGRICOLE
+  AUTRE
+}
+
+// Modèle pour la gestion des propriétaires (vue admin)
+model Owner {
+  id              String    @id @default(cuid())
+  
+  // Informations personnelles
+  firstName       String
+  lastName        String
+  fullName        String    // Nom complet formaté
+  
+  // Informations civiles
+  nationality     String    @default("Ivoirienne")
+  birthDate       DateTime?
+  gender          Gender?
+  
+  // Informations professionnelles
+  ifu             String?   @unique // Identifiant Fiscal Unique
+  npi             String?   @unique // Numéro de Propriétaire Immobilier
+  profession      String?
+  
+  // Contact
+  phoneNumber     String?
+  email           String?
+  address         String?
+  
+  // Relations
+  parcels         Parcel[]
+  user            User?     @relation(fields: [userId], references: [id])
+  userId          String?   @unique
+  
+  // Statistiques
+  totalParcels    Int       @default(0)
+  totalTaxAmount  Float     @default(0)
+  
+  // Status
+  isActive        Boolean   @default(true)
+  
+  // Timestamps
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  @@index([nationality])
+  @@index([ifu])
+  @@index([npi])
+}
+
+enum Gender {
+  M // Masculin
+  F // Féminin
+}
+
+// Modèle pour les logs d'audit admin
+model AdminLog {
+  id              String    @id @default(cuid())
+  
+  // Admin qui a effectué l'action
+  adminId         String
+  admin           User      @relation("AdminLogs", fields: [adminId], references: [id], onDelete: Cascade)
+  
+  // Action effectuée
+  action          AdminAction
+  entity          String    // Type d'entité (Parcel, Owner, User, etc.)
+  entityId        String    // ID de l'entité
+  
+  // Détails de l'action
+  description     String
+  oldValues       Json?     // Anciennes valeurs (pour les modifications)
+  newValues       Json?     // Nouvelles valeurs (pour les modifications)
+  
+  // Métadonnées
+  ipAddress       String?
+  userAgent       String?
+  
+  // Timestamps
+  createdAt       DateTime  @default(now())
+  
+  @@index([adminId])
+  @@index([action])
+  @@index([entity])
+  @@index([createdAt])
+}
+
+enum AdminAction {
+  CREATE
+  UPDATE
+  DELETE
+  VIEW
+  EXPORT
+  IMPORT
+  LOGIN
+  LOGOUT
+}
+
+// Modèle pour les statistiques du tableau de bord
+model DashboardStats {
+  id                    String    @id @default(cuid())
+  
+  // Période des statistiques
+  period                DateTime  @unique // Date de la période (mensuelle)
+  
+  // Statistiques générales
+  totalParcels          Int       @default(0)
+  totalOwners           Int       @default(0)
+  totalUsers            Int       @default(0)
+  totalPayments         Int       @default(0)
+  
+  // Statistiques financières
+  totalTaxAmount        Float     @default(0)
+  totalPaidAmount       Float     @default(0)
+  totalPendingAmount    Float     @default(0)
+  
+  // Statistiques par district
+  statsPerDistrict      Json?     // Statistiques détaillées par quartier
+  
+  // Statistiques par type de propriété
+  statsPerPropertyType  Json?     // Statistiques par type de propriété
+  
+  // Tendances
+  growthRate            Float?    // Taux de croissance par rapport au mois précédent
+  
+  // Timestamps
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  
+  @@index([period])
 }

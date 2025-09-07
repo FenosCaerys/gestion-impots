@@ -1,18 +1,21 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { 
-  ChevronLeft, 
-  ChevronRight, 
   BarChart3, 
-  MapPin, 
   Map, 
+  Building2, 
   Users, 
   Calculator, 
   HelpCircle, 
   Settings, 
-  LogOut 
+  LogOut,
+  ChevronLeft,
+  ChevronRight,
+  MapPin
 } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
 import { useSidebar } from './SidebarProvider';
 
 type AdminTabType = 'tableau-de-bord' | 'parcelles' | 'cartographie' | 'proprietaires' | 'taxes-simulations' | 'aide' | 'parametres';
@@ -23,6 +26,7 @@ interface AdminSidebarProps {
 
 export function AdminSidebar({ activeTab }: AdminSidebarProps) {
   const router = useRouter();
+  const { logout } = useAuth();
   const { isCollapsed, toggleSidebar } = useSidebar();
 
   const handleTabChange = (tab: AdminTabType) => {
@@ -39,8 +43,7 @@ export function AdminSidebar({ activeTab }: AdminSidebarProps) {
   };
 
   const handleLogout = () => {
-    // TODO: Implémenter la logique de déconnexion
-    router.push('/fr/auth');
+    logout();
   };
 
   const navItems = [
