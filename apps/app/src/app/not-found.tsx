@@ -1,6 +1,3 @@
-import React from "react"
-import Link from "next/link"
-
 export default function NotFound() {
   return (
     <html lang="fr">
@@ -9,12 +6,12 @@ export default function NotFound() {
           <div className="text-center">
             <h1 className="mb-4 text-4xl font-bold text-gray-900">Page non trouvée</h1>
             <p className="mb-8 text-lg text-gray-600">La page que vous recherchez n'existe pas.</p>
-            <Link
+            <a
               href="/"
               className="inline-block rounded-lg bg-orange-500 px-6 py-3 text-white transition-colors hover:bg-orange-600"
             >
               Retour à l'accueil
-            </Link>
+            </a>
           </div>
         </main>
       </body>
