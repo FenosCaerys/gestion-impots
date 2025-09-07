@@ -7,6 +7,9 @@ import bunldeAnalyzer from "@next/bundle-analyzer"
 let config = {
   output: "standalone",
   reactStrictMode: true,
+  compiler: {
+    styledComponents: true,
+  },
   rewrites() {
     return [
       { source: "/healthz", destination: "/api/health" },

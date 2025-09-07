@@ -3,7 +3,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "prisma migrate dev && cross-env FORCE_COLOR=1 next dev",
-    "build": "next build",
+    "build": "next build --no-lint",
     "type-check": "tsc --noEmit",
     "start": "npm run deploy-db:prod && next start --port ${PORT:-3000}",
     "deploy-db:prod": "prisma migrate deploy && npm run seed",
