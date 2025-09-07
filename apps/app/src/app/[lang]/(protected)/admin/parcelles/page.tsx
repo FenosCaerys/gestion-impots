@@ -1,122 +1,122 @@
-'use client';
+"use client"
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Plus, Filter, RotateCcw, X } from 'lucide-react';
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { Plus, Filter, RotateCcw, X } from "lucide-react"
 
 export default function ParcellesPage() {
-  const router = useRouter();
-  const [selectedParcelle, setSelectedParcelle] = useState<any>(null);
-  
+  const router = useRouter()
+  const [selectedParcelle, setSelectedParcelle] = useState<any>(null)
+
   const handleNewParcelle = () => {
-    router.push('/fr/admin/parcelles/nouveau');
-  };
+    router.push("/fr/admin/parcelles/nouveau")
+  }
 
   const handleParcelleClick = (parcelle: any) => {
-    setSelectedParcelle(parcelle);
-  };
+    setSelectedParcelle(parcelle)
+  }
 
   const closeModal = () => {
-    setSelectedParcelle(null);
-  };
+    setSelectedParcelle(null)
+  }
 
   // Données selon l'image fournie avec détails complets
   const parcelles = [
     {
-      id: '00001',
-      parcelle: 'C',
-      lot: '1748',
-      adresse: 'Zogbo, Cotonou',
-      proprio: 'DOSSA Abel',
-      superficie: '500 m²',
-      usage: 'Bâti',
-      statutJuri: 'Titres fonciers',
-      impotExtime: '65 480F',
+      id: "00001",
+      parcelle: "C",
+      lot: "1748",
+      adresse: "Zogbo, Cotonou",
+      proprio: "DOSSA Abel",
+      superficie: "500 m²",
+      usage: "Bâti",
+      statutJuri: "Titres fonciers",
+      impotExtime: "65 480F",
       // Détails supplémentaires pour la popup
-      forme: 'rectangulaire',
-      usageDetaille: 'Terrain bâti',
-      latitude: '6.370123',
-      longitude: '2.427891',
-      image: '/api/placeholder/80/80'
+      forme: "rectangulaire",
+      usageDetaille: "Terrain bâti",
+      latitude: "6.370123",
+      longitude: "2.427891",
+      image: "/api/placeholder/80/80",
     },
     {
-      id: '00001',
-      parcelle: 'D',
-      lot: '1748',
-      adresse: 'Zogbo, Cotonou',
-      proprio: 'DOSSA Abel',
-      superficie: '500 m²',
-      usage: 'Bâti',
-      statutJuri: 'Titres fonciers',
-      impotExtime: '65 480F'
+      id: "00001",
+      parcelle: "D",
+      lot: "1748",
+      adresse: "Zogbo, Cotonou",
+      proprio: "DOSSA Abel",
+      superficie: "500 m²",
+      usage: "Bâti",
+      statutJuri: "Titres fonciers",
+      impotExtime: "65 480F",
     },
     {
-      id: '00001',
-      parcelle: 'E',
-      lot: '1748',
-      adresse: 'Zogbo, Cotonou',
-      proprio: 'DOSSA Abel',
-      superficie: '500 m²',
-      usage: 'Bâti',
-      statutJuri: 'Titres fonciers',
-      impotExtime: '65 480F'
+      id: "00001",
+      parcelle: "E",
+      lot: "1748",
+      adresse: "Zogbo, Cotonou",
+      proprio: "DOSSA Abel",
+      superficie: "500 m²",
+      usage: "Bâti",
+      statutJuri: "Titres fonciers",
+      impotExtime: "65 480F",
     },
     {
-      id: '00001',
-      parcelle: 'C',
-      lot: '1748',
-      adresse: 'Zogbo, Cotonou',
-      proprio: 'DOSSA Abel',
-      superficie: '500 m²',
-      usage: 'Bâti',
-      statutJuri: 'Titres fonciers',
-      impotExtime: '65 480F'
+      id: "00001",
+      parcelle: "C",
+      lot: "1748",
+      adresse: "Zogbo, Cotonou",
+      proprio: "DOSSA Abel",
+      superficie: "500 m²",
+      usage: "Bâti",
+      statutJuri: "Titres fonciers",
+      impotExtime: "65 480F",
     },
     {
-      id: '00001',
-      parcelle: 'D',
-      lot: '1748',
-      adresse: 'Zogbo, Cotonou',
-      proprio: 'DOSSA Abel',
-      superficie: '500 m²',
-      usage: 'Bâti',
-      statutJuri: 'Titres fonciers',
-      impotExtime: '65 480F'
+      id: "00001",
+      parcelle: "D",
+      lot: "1748",
+      adresse: "Zogbo, Cotonou",
+      proprio: "DOSSA Abel",
+      superficie: "500 m²",
+      usage: "Bâti",
+      statutJuri: "Titres fonciers",
+      impotExtime: "65 480F",
     },
     {
-      id: '00001',
-      parcelle: 'F',
-      lot: '1748',
-      adresse: 'Zogbo, Cotonou',
-      proprio: 'DOSSA Abel',
-      superficie: '500 m²',
-      usage: 'Bâti',
-      statutJuri: 'Titres fonciers',
-      impotExtime: '65 480F'
+      id: "00001",
+      parcelle: "F",
+      lot: "1748",
+      adresse: "Zogbo, Cotonou",
+      proprio: "DOSSA Abel",
+      superficie: "500 m²",
+      usage: "Bâti",
+      statutJuri: "Titres fonciers",
+      impotExtime: "65 480F",
     },
     {
-      id: '00001',
-      parcelle: 'F',
-      lot: '1748',
-      adresse: 'Zogbo, Cotonou',
-      proprio: 'DOSSA Abel',
-      superficie: '500 m²',
-      usage: 'Bâti',
-      statutJuri: 'Titres fonciers',
-      impotExtime: '65 480F'
-    }
-  ];
+      id: "00001",
+      parcelle: "F",
+      lot: "1748",
+      adresse: "Zogbo, Cotonou",
+      proprio: "DOSSA Abel",
+      superficie: "500 m²",
+      usage: "Bâti",
+      statutJuri: "Titres fonciers",
+      impotExtime: "65 480F",
+    },
+  ]
 
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-900">Parcelles</h1>
-        <button 
+        <button
           onClick={handleNewParcelle}
-          className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors flex items-center gap-2"
+          className="flex items-center gap-2 rounded-lg bg-black px-4 py-2 text-white transition-colors hover:bg-gray-800"
         >
-          <Plus className="w-4 h-4" />
+          <Plus className="h-4 w-4" />
           Nouveau
         </button>
       </div>
@@ -124,70 +124,74 @@ export default function ParcellesPage() {
       {/* Filters */}
       <div className="flex items-center gap-4 text-sm">
         <div className="flex items-center gap-2">
-          <Filter className="w-4 h-4 text-gray-500" />
+          <Filter className="h-4 w-4 text-gray-500" />
           <span className="text-gray-700">Filtrer par</span>
         </div>
-        
-        <select className="px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white">
+
+        <select className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm">
           <option>Cotonou</option>
         </select>
-        
-        <select className="px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white">
+
+        <select className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm">
           <option>Zogbo</option>
         </select>
-        
-        <select className="px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white">
+
+        <select className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm">
           <option>Parcelle Bâtie</option>
         </select>
-        
-        <select className="px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white">
+
+        <select className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm">
           <option>Impôt</option>
         </select>
 
         <button className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-gray-800">
-          <RotateCcw className="w-4 h-4" />
+          <RotateCcw className="h-4 w-4" />
           Restaurer
         </button>
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-200">
+            <thead className="border-b border-gray-200 bg-gray-50">
               <tr>
-                <th className="text-left py-3 px-4 font-medium text-gray-700 text-sm">ID</th>
-                <th className="text-left py-3 px-4 font-medium text-gray-700 text-sm">PARCELLE</th>
-                <th className="text-left py-3 px-4 font-medium text-gray-700 text-sm">LOT</th>
-                <th className="text-left py-3 px-4 font-medium text-gray-700 text-sm">ADRESSE</th>
-                <th className="text-left py-3 px-4 font-medium text-gray-700 text-sm">PROPRIO</th>
-                <th className="text-left py-3 px-4 font-medium text-gray-700 text-sm">SUPERF.</th>
-                <th className="text-left py-3 px-4 font-medium text-gray-700 text-sm">USAGE</th>
-                <th className="text-left py-3 px-4 font-medium text-gray-700 text-sm">STATUT JURI.</th>
-                <th className="text-left py-3 px-4 font-medium text-gray-700 text-sm">IMPOT EXTIME</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">ID</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">PARCELLE</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">LOT</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">ADRESSE</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">PROPRIO</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">SUPERF.</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">USAGE</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">STATUT JURI.</th>
+                <th className="px-4 py-3 text-left text-sm font-medium text-gray-700">IMPOT EXTIME</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
               {parcelles.map((parcelle, index) => (
-                <tr key={index} className="hover:bg-gray-50 cursor-pointer" onClick={() => handleParcelleClick(parcelle)}>
-                  <td className="py-3 px-4 text-sm text-gray-900">{parcelle.id}</td>
-                  <td className="py-3 px-4">
+                <tr
+                  key={index}
+                  className="cursor-pointer hover:bg-gray-50"
+                  onClick={() => handleParcelleClick(parcelle)}
+                >
+                  <td className="px-4 py-3 text-sm text-gray-900">{parcelle.id}</td>
+                  <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 bg-green-600 text-white rounded text-xs flex items-center justify-center font-medium">
+                      <div className="flex h-6 w-6 items-center justify-center rounded bg-green-600 text-xs font-medium text-white">
                         {parcelle.parcelle}
                       </div>
                     </div>
                   </td>
-                  <td className="py-3 px-4 text-sm text-gray-900">{parcelle.lot}</td>
-                  <td className="py-3 px-4 text-sm text-gray-900">{parcelle.adresse}</td>
-                  <td className="py-3 px-4 text-sm text-gray-900">{parcelle.proprio}</td>
-                  <td className="py-3 px-4 text-sm text-gray-900">{parcelle.superficie}</td>
-                  <td className="py-3 px-4 text-sm text-gray-900">{parcelle.usage}</td>
-                  <td className="py-3 px-4 text-sm text-gray-900">{parcelle.statutJuri}</td>
-                  <td className="py-3 px-4">
-                    <span className="text-orange-600 font-medium text-sm">
+                  <td className="px-4 py-3 text-sm text-gray-900">{parcelle.lot}</td>
+                  <td className="px-4 py-3 text-sm text-gray-900">{parcelle.adresse}</td>
+                  <td className="px-4 py-3 text-sm text-gray-900">{parcelle.proprio}</td>
+                  <td className="px-4 py-3 text-sm text-gray-900">{parcelle.superficie}</td>
+                  <td className="px-4 py-3 text-sm text-gray-900">{parcelle.usage}</td>
+                  <td className="px-4 py-3 text-sm text-gray-900">{parcelle.statutJuri}</td>
+                  <td className="px-4 py-3">
+                    <span className="text-sm font-medium text-orange-600">
                       {parcelle.impotExtime}
-                      <span className="text-xs text-gray-500 ml-1">/an</span>
+                      <span className="ml-1 text-xs text-gray-500">/an</span>
                     </span>
                   </td>
                 </tr>
@@ -199,54 +203,56 @@ export default function ParcellesPage() {
 
       {/* Modal de détails de parcelle */}
       {selectedParcelle && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+          <div className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl bg-white">
             {/* Header avec image */}
             <div className="relative">
-              <div className="h-20 bg-gradient-to-r from-green-400 to-blue-500 rounded-t-2xl flex items-center px-6">
-                <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center mr-4">
-                  <div className="w-12 h-12 bg-green-100 rounded flex items-center justify-center">
-                    <span className="text-green-600 font-bold text-lg">{selectedParcelle.parcelle}</span>
+              <div className="flex h-20 items-center rounded-t-2xl bg-gradient-to-r from-green-400 to-blue-500 px-6">
+                <div className="mr-4 flex h-16 w-16 items-center justify-center rounded-lg bg-white">
+                  <div className="flex h-12 w-12 items-center justify-center rounded bg-green-100">
+                    <span className="text-lg font-bold text-green-600">{selectedParcelle.parcelle}</span>
                   </div>
                 </div>
                 <div className="text-white">
-                  <h2 className="text-xl font-bold">Parcelle "{selectedParcelle.parcelle}" Lot {selectedParcelle.lot}</h2>
+                  <h2 className="text-xl font-bold">
+                    Parcelle "{selectedParcelle.parcelle}" Lot {selectedParcelle.lot}
+                  </h2>
                   <p className="text-sm opacity-90">{selectedParcelle.adresse}</p>
                 </div>
               </div>
-              <button 
+              <button
                 onClick={closeModal}
-                className="absolute top-4 right-4 w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-white hover:bg-opacity-30"
+                className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full bg-white bg-opacity-20 text-white hover:bg-opacity-30"
               >
-                <X className="w-5 h-5" />
+                <X className="h-5 w-5" />
               </button>
             </div>
 
             {/* Contenu */}
-            <div className="p-6 space-y-6">
+            <div className="space-y-6 p-6">
               {/* Informations principales */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-gray-600 mb-1">Superficie</p>
+                  <p className="mb-1 text-sm text-gray-600">Superficie</p>
                   <p className="font-semibold text-gray-900">{selectedParcelle.superficie}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600 mb-1">Forme</p>
+                  <p className="mb-1 text-sm text-gray-600">Forme</p>
                   <p className="font-semibold text-gray-900">rectangulaire</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600 mb-1">Propriétaire</p>
+                  <p className="mb-1 text-sm text-gray-600">Propriétaire</p>
                   <p className="font-semibold text-gray-900">{selectedParcelle.proprio}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600 mb-1">Usage</p>
+                  <p className="mb-1 text-sm text-gray-600">Usage</p>
                   <p className="font-semibold text-gray-900">Terrain bâti</p>
                 </div>
               </div>
 
               {/* Statut juridique */}
               <div>
-                <p className="text-sm text-gray-600 mb-1">Statut juridique</p>
+                <p className="mb-1 text-sm text-gray-600">Statut juridique</p>
                 <p className="font-semibold text-gray-900">{selectedParcelle.statutJuri}</p>
               </div>
 
@@ -256,21 +262,21 @@ export default function ParcellesPage() {
               {/* Coordonnées */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-gray-600 mb-1">Latitude</p>
+                  <p className="mb-1 text-sm text-gray-600">Latitude</p>
                   <p className="font-semibold text-gray-900">6.370123</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600 mb-1">Longitude</p>
+                  <p className="mb-1 text-sm text-gray-600">Longitude</p>
                   <p className="font-semibold text-gray-900">2.427891</p>
                 </div>
               </div>
 
               {/* Impôt estimé */}
-              <div className="bg-orange-50 rounded-lg p-4 text-center">
-                <p className="text-sm text-gray-600 mb-2">Impôt estimé :</p>
+              <div className="rounded-lg bg-orange-50 p-4 text-center">
+                <p className="mb-2 text-sm text-gray-600">Impôt estimé :</p>
                 <p className="text-2xl font-bold text-orange-600">
                   65 480F
-                  <span className="text-sm font-normal text-gray-500 ml-1">/an</span>
+                  <span className="ml-1 text-sm font-normal text-gray-500">/an</span>
                 </p>
               </div>
             </div>
@@ -278,5 +284,5 @@ export default function ParcellesPage() {
         </div>
       )}
     </div>
-  );
+  )
 }

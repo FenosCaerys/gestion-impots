@@ -5,10 +5,9 @@ import { notFound } from "next/navigation"
 import { fontSans } from "@/lib/fonts"
 import { i18n } from "@/lib/i18n-config"
 import { cn } from "@/lib/utils"
-import { logger } from "@gestion-impots/lib"
+// import { logger } from "@gestion-impots/lib"
 
 import "../globals.css"
-
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }))
@@ -24,7 +23,7 @@ export default async function RootLayout({
   //? If locale is not found, return 404
   if (!i18n.locales.includes(params.lang)) {
     if (params.lang !== "_next") {
-      logger.debug(`Locale not found: ${params.lang}`)
+      console.debug(`Locale not found: ${params.lang}`)
     }
     return notFound()
   }

@@ -1,11 +1,7 @@
 // import { ThemeSwitch } from "@/components/theme/theme-switch"
-import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute"
 
-export default function ProtectedLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function ProtectedLayout({ children }: { children: React.ReactNode }) {
   return (
     <ProtectedRoute>
       <div className="min-h-screen">
@@ -15,5 +11,5 @@ export default function ProtectedLayout({
         {children}
       </div>
     </ProtectedRoute>
-  );
+  )
 }

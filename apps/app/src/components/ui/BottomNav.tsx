@@ -1,47 +1,42 @@
-'use client';
+"use client"
 
-import { 
-  Home, 
-  Clock, 
-  Calculator, 
-  User 
-} from 'lucide-react';
-import { NavItem } from './NavItem';
+import { Home, Clock, Calculator, User } from "lucide-react"
+import { NavItem } from "./NavItem"
 
-type TabType = 'accueil' | 'historique' | 'simulateur' | 'moi';
+type TabType = "accueil" | "historique" | "simulateur" | "moi"
 
 interface BottomNavProps {
-  activeTab: TabType;
-  onTabChange: (tab: TabType) => void;
+  activeTab: TabType
+  onTabChange: (tab: TabType) => void
 }
 
 export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
   const navItems = [
     {
-      id: 'accueil' as TabType,
-      label: 'Accueil',
+      id: "accueil" as TabType,
+      label: "Accueil",
       icon: Home,
     },
     {
-      id: 'historique' as TabType,
-      label: 'Historique',
+      id: "historique" as TabType,
+      label: "Historique",
       icon: Clock,
     },
     {
-      id: 'simulateur' as TabType,
-      label: 'Simulateur',
+      id: "simulateur" as TabType,
+      label: "Simulateur",
       icon: Calculator,
     },
     {
-      id: 'moi' as TabType,
-      label: 'Moi',
+      id: "moi" as TabType,
+      label: "Moi",
       icon: User,
     },
-  ];
+  ]
 
   return (
-    <div className="bg-white border-t border-gray-200 px-4 py-2">
-      <div className="flex justify-around items-center h-16">
+    <div className="border-t border-gray-200 bg-white px-4 py-2">
+      <div className="flex h-16 items-center justify-around">
         {navItems.map((item) => (
           <NavItem
             key={item.id}
@@ -53,5 +48,5 @@ export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
         ))}
       </div>
     </div>
-  );
+  )
 }

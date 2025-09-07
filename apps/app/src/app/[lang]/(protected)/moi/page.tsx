@@ -1,131 +1,130 @@
-'use client';
+"use client"
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { ChevronRight, User, LogOut } from 'lucide-react';
-import { ProfileHeader } from '@/components/dashboard/ProfileHeader';
-import { ProfileSection } from '@/components/dashboard/ProfileSection';
-import { useAuth } from '@/hooks/useAuth';
-import { BottomNav } from '@/components/ui/BottomNav';
-import { PageLayout } from '@/components/ui/PageLayout';
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { ChevronRight, User, LogOut } from "lucide-react"
+import { ProfileHeader } from "@/components/dashboard/ProfileHeader"
+import { ProfileSection } from "@/components/dashboard/ProfileSection"
+import { useAuth } from "@/hooks/useAuth"
+import { BottomNav } from "@/components/ui/BottomNav"
+import { PageLayout } from "@/components/ui/PageLayout"
 
 export default function MoiPage() {
-  const router = useRouter();
-  const { logout } = useAuth();
-  const [activeTab, setActiveTab] = useState<'accueil' | 'historique' | 'simulateur' | 'moi'>('moi');
+  const router = useRouter()
+  const { logout } = useAuth()
+  const [activeTab, setActiveTab] = useState<"accueil" | "historique" | "simulateur" | "moi">("moi")
 
-  const handleTabChange = (tab: 'accueil' | 'historique' | 'simulateur' | 'moi') => {
+  const handleTabChange = (tab: "accueil" | "historique" | "simulateur" | "moi") => {
     const routes = {
-      accueil: '/fr/accueil',
-      historique: '/fr/historique', 
-      simulateur: '/fr/simulateur',
-      moi: '/fr/moi'
-    };
-    router.push(routes[tab]);
-  };
+      accueil: "/fr/accueil",
+      historique: "/fr/historique",
+      simulateur: "/fr/simulateur",
+      moi: "/fr/moi",
+    }
+    router.push(routes[tab])
+  }
 
   const handleCompleteProfile = () => {
     // TODO: Implémenter la navigation vers la complétion du profil
-    console.log('Compléter le profil');
-  };
+    console.log("Compléter le profil")
+  }
 
   const handleLogout = () => {
-    logout();
-  };
+    logout()
+  }
 
   const handleNavigation = (section: string) => {
     // TODO: Implémenter la navigation vers les différentes sections
-    console.log(`Naviguer vers: ${section}`);
-  };
+    console.log(`Naviguer vers: ${section}`)
+  }
 
   // Sections de la page profil
   const moiSection = [
     {
-      id: 'mes-parcelles',
-      label: 'Mes parcelles',
-      onClick: () => handleNavigation('mes-parcelles')
+      id: "mes-parcelles",
+      label: "Mes parcelles",
+      onClick: () => handleNavigation("mes-parcelles"),
     },
     {
-      id: 'mes-infos',
-      label: 'Mes infos',
-      onClick: () => handleNavigation('mes-infos')
+      id: "mes-infos",
+      label: "Mes infos",
+      onClick: () => handleNavigation("mes-infos"),
     },
     {
-      id: 'general',
-      label: 'General',
-      onClick: () => handleNavigation('general')
-    }
-  ];
+      id: "general",
+      label: "General",
+      onClick: () => handleNavigation("general"),
+    },
+  ]
 
   const parametresSection = [
     {
-      id: 'modifier-profil',
-      label: 'Modifier profil',
-      onClick: () => handleNavigation('modifier-profil')
+      id: "modifier-profil",
+      label: "Modifier profil",
+      onClick: () => handleNavigation("modifier-profil"),
     },
     {
-      id: 'notification',
-      label: 'Notification',
-      onClick: () => handleNavigation('notification')
+      id: "notification",
+      label: "Notification",
+      onClick: () => handleNavigation("notification"),
     },
     {
-      id: 'securite',
-      label: 'Sécurité',
-      onClick: () => handleNavigation('securite')
+      id: "securite",
+      label: "Sécurité",
+      onClick: () => handleNavigation("securite"),
     },
     {
-      id: 'langue',
-      label: 'Langue',
-      onClick: () => handleNavigation('langue')
-    }
-  ];
+      id: "langue",
+      label: "Langue",
+      onClick: () => handleNavigation("langue"),
+    },
+  ]
 
   const autresSection = [
     {
-      id: 'autres',
-      label: 'Autres',
-      onClick: () => handleNavigation('autres')
+      id: "autres",
+      label: "Autres",
+      onClick: () => handleNavigation("autres"),
     },
     {
-      id: 'confidentialite',
-      label: 'Confidentialité',
-      value: '24 MB',
-      onClick: () => handleNavigation('confidentialite')
-    }
-  ];
+      id: "confidentialite",
+      label: "Confidentialité",
+      value: "24 MB",
+      onClick: () => handleNavigation("confidentialite"),
+    },
+  ]
 
   const infoGeneralSection = [
     {
-      id: 'centre-aide',
-      label: 'Centre d\'aide',
-      onClick: () => handleNavigation('centre-aide')
+      id: "centre-aide",
+      label: "Centre d'aide",
+      onClick: () => handleNavigation("centre-aide"),
     },
     {
-      id: 'termes-conditions',
-      label: 'Termes & conditions',
-      onClick: () => handleNavigation('termes-conditions')
+      id: "termes-conditions",
+      label: "Termes & conditions",
+      onClick: () => handleNavigation("termes-conditions"),
     },
     {
-      id: 'privacy-policy',
-      label: 'Privacy Policy',
-      onClick: () => handleNavigation('privacy-policy')
-    }
-  ];
+      id: "privacy-policy",
+      label: "Privacy Policy",
+      onClick: () => handleNavigation("privacy-policy"),
+    },
+  ]
 
   const deconnexionSection = [
     {
-      id: 'deconnexion',
-      label: 'Déconnexion',
+      id: "deconnexion",
+      label: "Déconnexion",
       isLogout: true,
-      onClick: handleLogout
-    }
-  ];
+      onClick: handleLogout,
+    },
+  ]
 
   return (
     <PageLayout activeTab={activeTab}>
       {/* Layout responsive: mobile first, puis desktop */}
-      <div className="w-full max-w-md mx-auto lg:max-w-6xl lg:mx-auto">
-
+      <div className="mx-auto w-full max-w-md lg:mx-auto lg:max-w-6xl">
         {/* En-tête profil */}
         <ProfileHeader
           username="Losterne Brice"
@@ -137,51 +136,32 @@ export default function MoiPage() {
 
         {/* Contenu principal */}
         <div className="flex-1 lg:flex lg:gap-8 lg:p-8">
-
           {/* Colonne principale (mobile: full width, desktop: 2/3) */}
           <div className="flex-1 lg:w-2/3">
-
             {/* Sections du profil */}
-            <div className="pt-6 pb-4">
-              
+            <div className="pb-4 pt-6">
               {/* Section Moi */}
-              <ProfileSection
-                title="Moi"
-                items={moiSection}
-              />
+              <ProfileSection title="Moi" items={moiSection} />
 
               {/* Section Paramètres */}
-              <ProfileSection
-                title="Paramètres"
-                items={parametresSection}
-              />
+              <ProfileSection title="Paramètres" items={parametresSection} />
 
               {/* Section Autres */}
-              <ProfileSection
-                title="Langue"
-                items={autresSection}
-              />
+              <ProfileSection title="Langue" items={autresSection} />
 
               {/* Section Info général */}
-              <ProfileSection
-                title="Info général"
-                items={infoGeneralSection}
-              />
+              <ProfileSection title="Info général" items={infoGeneralSection} />
 
               {/* Section Déconnexion */}
-              <ProfileSection
-                title=""
-                items={deconnexionSection}
-              />
-
+              <ProfileSection title="" items={deconnexionSection} />
             </div>
           </div>
 
           {/* Sidebar droite (desktop uniquement) */}
           <div className="hidden lg:block lg:w-1/3">
-            <div className="bg-white rounded-xl shadow-sm p-6">
-              <h3 className="text-lg font-medium text-black mb-4">Profil</h3>
-              
+            <div className="rounded-xl bg-white p-6 shadow-sm">
+              <h3 className="mb-4 text-lg font-medium text-black">Profil</h3>
+
               <div className="space-y-4">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Profil complété</span>
@@ -199,16 +179,16 @@ export default function MoiPage() {
             </div>
 
             {/* Aide rapide */}
-            <div className="bg-white rounded-xl shadow-sm p-6 mt-6">
-              <h3 className="text-lg font-medium text-black mb-4">Aide rapide</h3>
+            <div className="mt-6 rounded-xl bg-white p-6 shadow-sm">
+              <h3 className="mb-4 text-lg font-medium text-black">Aide rapide</h3>
               <div className="space-y-3">
-                <button className="w-full text-left p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                <button className="w-full rounded-lg bg-gray-50 p-3 text-left transition-colors hover:bg-gray-100">
                   <span className="text-sm font-medium">Comment ajouter une parcelle ?</span>
                 </button>
-                <button className="w-full text-left p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                <button className="w-full rounded-lg bg-gray-50 p-3 text-left transition-colors hover:bg-gray-100">
                   <span className="text-sm font-medium">Modifier mes informations</span>
                 </button>
-                <button className="w-full text-left p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                <button className="w-full rounded-lg bg-gray-50 p-3 text-left transition-colors hover:bg-gray-100">
                   <span className="text-sm font-medium">Centre d'aide</span>
                 </button>
               </div>
@@ -218,12 +198,9 @@ export default function MoiPage() {
 
         {/* Navigation - Mobile uniquement */}
         <div className="lg:hidden">
-          <BottomNav 
-            activeTab={activeTab}
-            onTabChange={handleTabChange}
-          />
+          <BottomNav activeTab={activeTab} onTabChange={handleTabChange} />
         </div>
       </div>
     </PageLayout>
-  );
+  )
 }

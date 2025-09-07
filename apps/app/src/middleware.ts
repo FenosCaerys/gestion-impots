@@ -32,15 +32,16 @@ export function middleware(request: NextRequest) {
   const isAuthenticated = cookies.get("isAuthenticated")?.value === "true"
 
   // Define protected routes
-  const isProtectedRoute = pathname.includes("/(protected)/") || 
-                          pathname.includes("/accueil") || 
-                          pathname.includes("/historique") || 
-                          pathname.includes("/simulateur") || 
-                          pathname.includes("/moi")
+  const isProtectedRoute =
+    pathname.includes("/(protected)/") ||
+    pathname.includes("/accueil") ||
+    pathname.includes("/historique") ||
+    pathname.includes("/simulateur") ||
+    pathname.includes("/moi")
 
   // Redirect unauthenticated users to login page
   if (isProtectedRoute && !isAuthenticated) {
-    const locale = pathname.split('/')[1] || 'fr'
+    const locale = pathname.split("/")[1] || "fr"
     return NextResponse.redirect(new URL(`/${locale}`, request.url))
   }
 

@@ -5,17 +5,13 @@ export default function NotFound() {
   return (
     <html lang="fr">
       <body>
-        <main className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <main className="flex min-h-screen items-center justify-center bg-gray-50">
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              Page non trouvée
-            </h1>
-            <p className="text-lg text-gray-600 mb-8">
-              La page que vous recherchez n'existe pas.
-            </p>
-            <Link 
-              href="/" 
-              className="inline-block bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors"
+            <h1 className="mb-4 text-4xl font-bold text-gray-900">Page non trouvée</h1>
+            <p className="mb-8 text-lg text-gray-600">La page que vous recherchez n'existe pas.</p>
+            <Link
+              href="/"
+              className="inline-block rounded-lg bg-orange-500 px-6 py-3 text-white transition-colors hover:bg-orange-600"
             >
               Retour à l'accueil
             </Link>

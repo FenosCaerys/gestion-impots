@@ -38,8 +38,6 @@ async function main() {
     } else {
       logger.log("Admin already exists")
     }
-
-
   } catch (e) {
     console.error(e)
     process.exit(1)

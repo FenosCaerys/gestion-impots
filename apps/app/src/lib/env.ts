@@ -36,13 +36,12 @@ export const env = createEnv({
       .transform((value) => value === "true"),
     ENV: z.enum(["development", "staging", "preproduction", "production"]),
     VERCEL_URL: z.string().optional(),
-   
-    
+
     // Tax management specific environment variables
     MTN_MOMO_API_KEY: z.string().optional(),
     MTN_MOMO_API_SECRET: z.string().optional(),
     MTN_MOMO_SUBSCRIPTION_KEY: z.string().optional(),
-    
+
     // Tax calculation settings
     TAX_BASE_AMOUNT: z
       .string()
@@ -52,7 +51,6 @@ export const env = createEnv({
       .string()
       .optional()
       .transform((value) => (value ? parseInt(value) : new Date().getFullYear())),
-    
   },
   client: {
     NEXT_PUBLIC_BASE_URL: z.string().url().optional(),
@@ -84,16 +82,15 @@ export const env = createEnv({
     ENV: process.env.ENV,
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
     VERCEL_URL: process.env.VERCEL_URL,
-    
+
     // Tax management specific environment variables
     MTN_MOMO_API_KEY: process.env.MTN_MOMO_API_KEY,
     MTN_MOMO_API_SECRET: process.env.MTN_MOMO_API_SECRET,
     MTN_MOMO_SUBSCRIPTION_KEY: process.env.MTN_MOMO_SUBSCRIPTION_KEY,
-    
+
     // Tax calculation settings
     TAX_BASE_AMOUNT: process.env.TAX_BASE_AMOUNT,
     TAX_YEAR: process.env.TAX_YEAR,
-
   },
   onValidationError: (error) => {
     logger.error(error)
