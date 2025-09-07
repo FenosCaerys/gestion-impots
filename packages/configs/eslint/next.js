@@ -1,7 +1,7 @@
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
   extends: [
-    "next",
+    "next/core-web-vitals",
     "prettier",
     "react-app/jest",
     "plugin:@typescript-eslint/recommended",

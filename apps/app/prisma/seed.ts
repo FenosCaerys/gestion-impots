@@ -4,7 +4,7 @@ import ora from "ora"
 
 import { hash } from "@/lib/bcrypt"
 import { env } from "@/lib/env"
-import { logger, startTask } from "@gestion-impots/lib"
+// import { logger, startTask } from "@gestion-impots/lib"
 import { PrismaClient } from "@prisma/client"
 
 const spinner = ora()
@@ -20,10 +20,7 @@ async function main() {
       },
     })
     if (!adminExists) {
-      const task = await startTask({
-        name: "Creating admin",
-        successMessage: "Admin created",
-      })
+      console.log("Creating admin...")
       await prisma.user.create({
         data: {
           email: env.AUTH_ADMIN_EMAIL as string,
@@ -34,9 +31,9 @@ async function main() {
           name: "Admin",
         },
       })
-      task.stop()
+      console.log("Admin created")
     } else {
-      logger.log("Admin already exists")
+      console.log("Admin already exists")
     }
   } catch (e) {
     console.error(e)
@@ -52,7 +49,7 @@ main()
     await prisma.$disconnect()
   })
   .catch(async (e) => {
-    logger.error(e)
+    console.error(e)
     await prisma.$disconnect()
     process.exit(1)
   })
