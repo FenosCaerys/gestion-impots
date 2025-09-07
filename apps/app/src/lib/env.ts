@@ -2,7 +2,7 @@
 import { config } from "dotenv"
 import { z } from "zod"
 
-import { logger } from "@gestion-impots/lib"
+// import { logger } from "@gestion-impots/lib"
 import { createEnv } from "@t3-oss/env-nextjs"
 
 if (!process.env.ENV) {
@@ -93,11 +93,11 @@ export const env = createEnv({
     TAX_YEAR: process.env.TAX_YEAR,
   },
   onValidationError: (error) => {
-    logger.error(error)
+    console.error(error)
     throw "Invalid environment variables"
   },
   onInvalidAccess(variable) {
-    logger.error(`Invalid access to ${variable}`)
+    console.error(`Invalid access to ${variable}`)
     throw "Invalid environment variables"
   },
 })
