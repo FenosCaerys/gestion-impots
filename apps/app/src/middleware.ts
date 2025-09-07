@@ -26,13 +26,25 @@ function getLocale(request: NextRequest, cookiesLocale: string | undefined): str
 export function middleware(request: NextRequest) {
   const cookies = request.cookies
   const sessionToken = cookies.get("authjs.session-token")?.value
+  const pathname = request.nextUrl.pathname
 
-  if (!sessionToken) {
+  // Check if user is authenticated (for demo, we'll check localStorage via cookie)
+  const isAuthenticated = cookies.get("isAuthenticated")?.value === "true"
+
+  // Define protected routes
+  const isProtectedRoute = pathname.includes("/(protected)/") || 
+                          pathname.includes("/accueil") || 
+                          pathname.includes("/historique") || 
+                          pathname.includes("/simulateur") || 
+                          pathname.includes("/moi")
+
+  // Redirect unauthenticated users to login page
+  if (isProtectedRoute && !isAuthenticated) {
+    const locale = pathname.split('/')[1] || 'fr'
+    return NextResponse.redirect(new URL(`/${locale}`, request.url))
   }
 
   const savedLocale = cookies.get("saved-locale")
-
-  const pathname = request.nextUrl.pathname
 
   // Inject the current url in the headers
   const rHeaders = new Headers(request.headers)

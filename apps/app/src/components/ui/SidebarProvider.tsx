@@ -10,7 +10,11 @@ interface SidebarContextType {
 
 const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
 
-export function SidebarProvider({ children }: { children: ReactNode }) {
+interface SidebarProviderProps {
+  children: ReactNode | ((context: SidebarContextType) => ReactNode);
+}
+
+export function SidebarProvider({ children }: SidebarProviderProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const toggleSidebar = () => {
@@ -19,9 +23,11 @@ export function SidebarProvider({ children }: { children: ReactNode }) {
 
   const sidebarWidth = isCollapsed ? 64 : 256; // 16px * 4 = 64px, 64px * 4 = 256px
 
+  const contextValue = { isCollapsed, toggleSidebar, sidebarWidth };
+
   return (
-    <SidebarContext.Provider value={{ isCollapsed, toggleSidebar, sidebarWidth }}>
-      {children}
+    <SidebarContext.Provider value={contextValue}>
+      {typeof children === 'function' ? children(contextValue) : children}
     </SidebarContext.Provider>
   );
 }

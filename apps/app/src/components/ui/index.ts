@@ -9,5 +9,7 @@ export { Alert, AlertDescription, AlertTitle } from './alert';
 export { default as CardTitle } from './card';
 export { ScrollToTop } from './ScrollToTop';
 export { Sidebar } from './Sidebar';
+export { AdminSidebar } from './AdminSidebar';
+export { AdminHeader } from './AdminHeader';
 export { SidebarProvider, useSidebar } from './SidebarProvider';
 export { PageLayout } from './PageLayout';
