@@ -22,7 +22,7 @@ let config = {
     // Exclure styled-jsx du bundle
     config.externals = config.externals || []
     if (isServer) {
-      config.externals.push('styled-jsx')
+      config.externals.push('styled-jsx') 
     }
     
     return config
