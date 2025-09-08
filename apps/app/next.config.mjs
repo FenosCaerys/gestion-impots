@@ -7,6 +7,26 @@ import bunldeAnalyzer from "@next/bundle-analyzer"
 let config = {
   output: "standalone",
   reactStrictMode: true,
+  compiler: {
+    styledComponents: false,
+    styledJsx: false,
+  },
+  webpack: (config, { isServer }) => {
+    // Désactiver complètement styled-jsx
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      'styled-jsx/style': false,
+      'styled-jsx': false,
+    }
+    
+    // Exclure styled-jsx du bundle
+    config.externals = config.externals || []
+    if (isServer) {
+      config.externals.push('styled-jsx')
+    }
+    
+    return config
+  },
   rewrites() {
     return [
       { source: "/healthz", destination: "/api/health" },
