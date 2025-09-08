@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 export default function Custom404() {
   return (
     <div style={{

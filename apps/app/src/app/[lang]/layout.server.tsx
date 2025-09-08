@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: { params: { lang: string } })
   return {
     title: "Cada-Terra",
     description: "Application de gestion des impôts fonciers",
-  } 
+  }
 }
 
 export async function generateStaticParams() {

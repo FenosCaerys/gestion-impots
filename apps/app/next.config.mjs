@@ -11,20 +11,32 @@ let config = {
     styledComponents: false,
     styledJsx: false,
   },
+  styledJsx: false,
+  experimental: {
+    forceSwcTransforms: true,
+    esmExternals: "loose",
+  },
   webpack: (config, { isServer }) => {
     // Désactiver complètement styled-jsx
     config.resolve.alias = {
       ...config.resolve.alias,
       'styled-jsx/style': false,
+      'styled-jsx/dist/index': false,
+      'styled-jsx/dist/index/index': false,
       'styled-jsx': false,
     }
-    
+
     // Exclure styled-jsx du bundle
     config.externals = config.externals || []
-    if (isServer) {
-      config.externals.push('styled-jsx') 
-    }
-    
+    config.externals.push('styled-jsx')
+    config.externals.push('styled-jsx/style')
+    config.externals.push('styled-jsx/dist/index')
+
+    // Supprimer styled-jsx des plugins
+    config.plugins = config.plugins.filter(plugin => 
+      !plugin.constructor.name.includes('StyledJsx')
+    )
+
     return config
   },
   rewrites() {
@@ -81,11 +93,6 @@ let config = {
       },
       {
         source: "/:lang/signup",
-        destination: "/:lang/sign-up",
-        permanent: process.env.ENV === "production" ? true : false,
-      },
-      {
-        source: "/:lang/register",
         destination: "/:lang/sign-up",
         permanent: process.env.ENV === "production" ? true : false,
       },
