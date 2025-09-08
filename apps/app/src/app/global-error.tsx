@@ -1,38 +1,18 @@
-'use client'
+// "use client"
 
-export default function GlobalError({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string }
-  reset: () => void
-}) {
-  return (
-    <html>
-      <body>
-        <main className="flex min-h-screen items-center justify-center bg-gray-50">
-          <div className="text-center">
-            <h1 className="mb-4 text-4xl font-bold text-gray-900">Une erreur globale s'est produite</h1>
-            <p className="mb-8 text-lg text-gray-600">
-              Une erreur inattendue s'est produite. Veuillez réessayer.
-            </p>
-            <div className="space-x-4">
-              <button
-                onClick={() => reset()}
-                className="inline-block rounded-lg bg-orange-500 px-6 py-3 text-white transition-colors hover:bg-orange-600"
-              >
-                Réessayer
-              </button>
-              <a
-                href="/"
-                className="inline-block rounded-lg bg-gray-500 px-6 py-3 text-white transition-colors hover:bg-gray-600"
-              >
-                Retour à l'accueil
-              </a>
-            </div>
-          </div>
-        </main>
-      </body>
-    </html>
-  )
-}
+// import { Button } from "@nextui-org/button"
+
+// export default function GlobalError({ reset }: { reset: () => void }) {
+//   return (
+//     <html>
+//       <body>
+//         <main className="container m-auto flex min-h-screen flex-1 flex-col items-center justify-center gap-3">
+//           <h1 className="text-center text-xl font-bold lg:text-4xl">Une erreur est survenue</h1>
+//           <Button onPress={() => reset()} color="primary" variant="flat">
+//             Réessayer
+//           </Button>
+//         </main>
+//       </body>
+//     </html>
+//   )
+// }

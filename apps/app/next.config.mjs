@@ -7,10 +7,6 @@ import bunldeAnalyzer from "@next/bundle-analyzer"
 let config = {
   output: "standalone",
   reactStrictMode: true,
-  compiler: {
-    styledComponents: true,
-    styledJsx: false,
-  },
   rewrites() {
     return [
       { source: "/healthz", destination: "/api/health" },
@@ -18,7 +14,32 @@ let config = {
       { source: "/health", destination: "/api/health" },
       { source: "/ping", destination: "/api/health" },
       { source: "/api/ping", destination: "/api/health" },
+      // Réécriture pour la page de test WebRTC
+      { source: "/test-webrtc.html", destination: "/test-webrtc" },
     ]
+  },
+  images: {
+    remotePatterns: [
+      {
+        hostname: "randomuser.me",
+      },
+
+      {
+        hostname: "lh3.googleusercontent.com",
+      },
+      {
+        hostname: "i.pinimg.com",
+      },
+      {
+        hostname: "em-content.zobj.net",
+      },
+      {
+        hostname: "avatars.githubusercontent.com",
+      },
+    ],
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
   },
   redirects() {
     //? Permanent redirects only in prod env
@@ -49,6 +70,9 @@ let config = {
         permanent: process.env.ENV === "production" ? true : false,
       },
     ]
+  },
+  experimental: {
+    esmExternals: "loose",
   },
 }
 
