@@ -18,11 +18,11 @@ export function SimulatorForm({ onCalculate }: SimulatorFormProps) {
   const [formData, setFormData] = useState<SimulatorFormData>({
     adresse: "Littoral",
     superficie: "500 - 800 m2",
-    usage: "Bâti",
+    usage: "Terrain Bâti",
     statutJuridique: "Titre foncier",
   })
 
-  const adresseOptions = ["Littoral", "Plateau", "Cocody", "Yopougon", "Adjamé", "Treichville", "Marcory", "Port-Bouët"]
+  const adresseOptions = ["Alibori", "Atacora", "Atlantique", "Borgou", "Collines", "Couffo", "Donga", "Littoral", "Mono", "Ouémé", "Plateau", "Zou"]
 
   const superficieOptions = [
     "0 - 200 m2",
@@ -33,7 +33,7 @@ export function SimulatorForm({ onCalculate }: SimulatorFormProps) {
     "2000+ m2",
   ]
 
-  const usageOptions = ["Bâti", "Non bâti", "Commercial", "Industriel", "Agricole"]
+  const usageOptions = ["Terrain nu", "Terrain Bâti", "Commerce", "Projet en cours", "Exploitation agricole", "Autre"]
 
   const statutOptions = ["Titre foncier", "Arrêté de concession", "Certificat foncier", "Acte de vente"]
 

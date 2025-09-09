@@ -35,16 +35,20 @@ export default function SimulateurPage() {
   const calculateTax = (data: SimulatorFormData): number => {
     let baseAmount = 50000 // Montant de base
 
-    // Facteur adresse
+    // Facteur adresse (Départements du Bénin)
     const adresseMultiplier: { [key: string]: number } = {
-      Littoral: 1.5,
-      Plateau: 1.4,
-      Cocody: 1.3,
-      Yopougon: 1.0,
-      Adjamé: 0.9,
-      Treichville: 1.1,
-      Marcory: 1.2,
-      "Port-Bouët": 0.8,
+      Alibori: 0.7,
+      Atacora: 0.8,
+      Atlantique: 1.3,
+      Borgou: 0.9,
+      Collines: 0.8,
+      Couffo: 0.7,
+      Donga: 0.7,
+      Littoral: 1.5, // Cotonou - zone la plus chère
+      Mono: 0.8,
+      Ouémé: 1.1,
+      Plateau: 0.9,
+      Zou: 0.8,
     }
 
     // Facteur superficie
@@ -59,11 +63,12 @@ export default function SimulateurPage() {
 
     // Facteur usage
     const usageMultiplier: { [key: string]: number } = {
-      Bâti: 1.3,
-      "Non bâti": 0.7,
-      Commercial: 2.0,
-      Industriel: 1.8,
-      Agricole: 0.5,
+      "Terrain nu": 0.7,
+      "Terrain Bâti": 1.3,
+      Commerce: 2.0,
+      "Projet en cours": 1.1,
+      "Exploitation agricole": 0.5,
+      Autre: 1.0,
     }
 
     // Facteur statut juridique
