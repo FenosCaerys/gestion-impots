@@ -4,7 +4,7 @@ import { ChevronRight } from "lucide-react"
 
 interface ProfileHeaderProps {
   username: string
-  npi: string
+  phoneNumber: string
   completionText: string
   completionSubtext: string
   onCompleteProfile: () => void
@@ -12,7 +12,7 @@ interface ProfileHeaderProps {
 
 export function ProfileHeader({
   username,
-  npi,
+  phoneNumber,
   completionText,
   completionSubtext,
   onCompleteProfile,
@@ -34,7 +34,7 @@ export function ProfileHeader({
         {/* Informations utilisateur */}
         <div>
           <h1 className="text-lg font-bold text-white">{username}</h1>
-          <p className="text-sm text-gray-400">NPI: {npi}</p>
+          <p className="text-sm text-gray-400">{phoneNumber}</p>
         </div>
       </div>
 

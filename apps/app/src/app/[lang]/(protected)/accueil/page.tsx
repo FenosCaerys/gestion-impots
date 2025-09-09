@@ -61,6 +61,7 @@ export default function AccueilPage() {
         {/* En-tête utilisateur */}
         <UserHeader 
           username={user ? `${user.firstName} ${user.lastName}` : "Utilisateur"} 
+          phoneNumber={user?.phoneNumber || undefined}
           hasNotification={true} 
         />
 

@@ -123,26 +123,6 @@ export function LoginForm({ onSwitchToRegister }: LoginFormProps) {
         </p>
       </div>
 
-      {/* Demo Credentials */}
-      <div className="mt-6 space-y-3">
-        <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
-          <p className="mb-1 text-center text-xs font-medium text-blue-800">Compte Utilisateur</p>
-          <p className="text-center text-xs text-blue-600">
-            <strong>Email:</strong> user@test.com
-            <br />
-            <strong>Mot de passe:</strong> user123
-          </p>
-        </div>
-
-        <div className="rounded-lg border border-orange-200 bg-orange-50 p-4">
-          <p className="mb-1 text-center text-xs font-medium text-orange-800">Compte Administrateur</p>
-          <p className="text-center text-xs text-orange-600">
-            <strong>Email:</strong> admin@test.com
-            <br />
-            <strong>Mot de passe:</strong> admin123
-          </p>
-        </div>
-      </div>
     </div>
   )
 }

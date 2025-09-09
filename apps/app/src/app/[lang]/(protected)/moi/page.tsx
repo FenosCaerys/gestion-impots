@@ -6,12 +6,14 @@ import { ChevronRight, User, LogOut } from "lucide-react"
 import { ProfileHeader } from "@/components/dashboard/ProfileHeader"
 import { ProfileSection } from "@/components/dashboard/ProfileSection"
 import { useAuth } from "@/hooks/useAuth"
+import { useUserData } from "@/hooks/useUserData"
 import { BottomNav } from "@/components/ui/BottomNav"
 import { PageLayout } from "@/components/ui/PageLayout"
 
 export default function MoiPage() {
   const router = useRouter()
-  const { logout } = useAuth()
+  const { user: authUser, logout } = useAuth()
+  const { user, loading } = useUserData(authUser?.id || null)
   const [activeTab, setActiveTab] = useState<"accueil" | "historique" | "simulateur" | "moi">("moi")
 
   const handleTabChange = (tab: "accueil" | "historique" | "simulateur" | "moi") => {
@@ -127,10 +129,10 @@ export default function MoiPage() {
       <div className="mx-auto w-full max-w-md lg:mx-auto lg:max-w-6xl">
         {/* En-tête profil */}
         <ProfileHeader
-          username="Losterne Brice"
-          npi="8756450012"
-          completionText="Complétez vos vos infos"
-          completionSubtext="(1/3) Entrez vos infos perso"
+          username={user ? `${user.firstName} ${user.lastName}` : "Utilisateur"}
+          phoneNumber={user?.phoneNumber || "Non renseigné"}
+          completionText="Complétez vos infos"
+          completionSubtext={`(${user?.profileCompletionStep || 1}/3) Entrez vos infos perso`}
           onCompleteProfile={handleCompleteProfile}
         />
 

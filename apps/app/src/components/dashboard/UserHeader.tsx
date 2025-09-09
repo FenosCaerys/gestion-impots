@@ -4,11 +4,12 @@ import { Bell } from "lucide-react"
 
 interface UserHeaderProps {
   username: string
+  phoneNumber?: string
   hasNotification?: boolean
   avatar?: string
 }
 
-export function UserHeader({ username, hasNotification = false, avatar }: UserHeaderProps) {
+export function UserHeader({ username, phoneNumber, hasNotification = false, avatar }: UserHeaderProps) {
   const getInitial = (name: string) => {
     return name.charAt(0).toUpperCase()
   }
@@ -29,6 +30,9 @@ export function UserHeader({ username, hasNotification = false, avatar }: UserHe
         <div>
           <p className="text-sm font-normal text-white lg:text-gray-900">Hello,</p>
           <p className="text-lg font-medium text-white lg:text-gray-900">{username}</p>
+          {phoneNumber && (
+            <p className="text-xs text-gray-300 lg:text-gray-600">{phoneNumber}</p>
+          )}
         </div>
       </div>
 
