@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { PageHeader } from "@/components/dashboard/PageHeader"
-import { PaymentsList } from "@/components/dashboard/PaymentsList"
+// PaymentsList supprimé - remplacé par une simple liste
 import { BottomNav } from "@/components/ui/BottomNav"
 import { PageLayout } from "@/components/ui/PageLayout"
 
@@ -91,7 +91,25 @@ export default function HistoriquePage() {
           <div className="flex-1 lg:w-2/3">
             {/* Liste complète des paiements - Mobile */}
             <div className="pb-4 pt-6 lg:pt-0">
-              <PaymentsList items={allPayments} showViewAll={false} />
+              <div className="rounded-xl bg-white p-6 shadow-sm">
+                <h3 className="mb-4 text-lg font-medium text-black">Historique des paiements</h3>
+                <div className="space-y-4">
+                  {allPayments.map((payment) => (
+                    <div key={payment.id} className="flex items-center justify-between border-b border-gray-100 pb-4 last:border-b-0 last:pb-0">
+                      <div>
+                        <p className="font-medium text-gray-900">{payment.title}</p>
+                        <p className="text-sm text-gray-600">{payment.date}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-semibold text-gray-900">{payment.amount.toLocaleString()} XOF</p>
+                        <span className="inline-flex items-center rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800">
+                          Payé
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
