@@ -3,12 +3,36 @@
 import { useState } from "react"
 import { Search, Menu, Bell, ChevronDown, User } from "lucide-react"
 import { useSidebar } from "./SidebarProvider"
+import { useAuth } from "@/hooks/useAuth"
 
 export function AdminHeader() {
   const { toggleSidebar } = useSidebar()
+  const { user } = useAuth()
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedVille, setSelectedVille] = useState("")
   const [selectedType, setSelectedType] = useState("")
+
+  // Générer l'initiale pour l'avatar
+  const getInitial = () => {
+    if (user?.name) {
+      return user.name.charAt(0).toUpperCase()
+    }
+    if (user?.email) {
+      return user.email.charAt(0).toUpperCase()
+    }
+    return "A"
+  }
+
+  // Générer le nom d'affichage
+  const getDisplayName = () => {
+    if (user?.name && user.name !== "Utilisateur") {
+      return user.name
+    }
+    if (user?.email) {
+      return user.email.split("@")[0]
+    }
+    return "Admin"
+  }
 
   const villes = ["Toutes les villes", "Cocody", "Plateau", "Marcory", "Yopougon", "Adjamé", "Treichville"]
 
@@ -87,13 +111,13 @@ export function AdminHeader() {
           <div className="flex cursor-pointer items-center space-x-3 rounded-lg p-2 transition-colors hover:bg-gray-50">
             {/* Avatar */}
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-orange-500">
-              <span className="text-sm font-medium text-white">L</span>
+              <span className="text-sm font-medium text-white">{getInitial()}</span>
             </div>
 
             {/* User info */}
             <div className="hidden sm:block">
-              <p className="text-sm font-medium text-gray-900">Losterne</p>
-              <p className="text-xs text-gray-500">Admin</p>
+              <p className="text-sm font-medium text-gray-900">{getDisplayName()}</p>
+              <p className="text-xs text-gray-500">{user?.role === 'admin' ? 'Admin' : 'Utilisateur'}</p>
             </div>
 
             {/* Dropdown arrow */}
